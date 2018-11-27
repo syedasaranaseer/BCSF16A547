@@ -1,0 +1,78 @@
+b=[]
+
+total_wait=[]
+
+n=int(raw_input('Total number of processes: '))
+
+start_time=0
+
+total=0
+
+
+for i in xrange(n):
+
+	b.append([])
+	
+	b[i].append(raw_input('Enter process name: '))
+
+	b[i].append(int(raw_input('Enter arrival time: ')))
+
+	b[i].append(int(raw_input('Enter burst time: ')))
+
+
+
+for i in xrange (n):
+
+		p=i
+	
+		j=i+1
+
+while j<n:
+
+	
+	if b[j][2] < b[p][2]:
+
+			p=j
+	
+			j=j+1
+		
+	temp=b[i][2]
+		
+	b[i][2]=b[p][2]
+		
+	b[p][2]=temp
+	
+	
+	temp=b[i][0]
+		
+	b[i][0]=b[p][0]
+		
+	b[p][0]=temp
+
+
+			temp=b[i][1]
+		
+	b[i][1]=b[p][1]
+		
+	b[p][1]=temp
+
+
+			start_time=0
+
+for i in xrange(n):
+	
+			total_wait.append([])
+	
+			total_wait[i].append(int(start_time-b[i][1]))
+
+			start_time=start_time+b[i][2]
+
+
+
+
+    print  'Process \t Arrival time \t Burst time \t waiting time'
+
+
+
+for i in xrange(n):
+	print b[i][0],' \t\t',b[i][1],' \t\t',b[i][2],' \t\t',total_wait[i]

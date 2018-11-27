@@ -1,0 +1,91 @@
+b=[]
+
+finish=[]
+
+total=0
+
+current=0
+
+
+n=int(raw_input('Total number of processes: '))
+
+
+for i in xrange(n):
+
+	b.append([])
+
+	b[i].append(raw_input('Enter process name: '))
+
+	b[i].append(int(raw_input('Enter arrival time: ')))
+
+	b[i].append(int(raw_input('Enter burst time: ')))
+
+	b[i].append(b[i][2]) #remaining burst time
+
+	b[i].append(0)
+	total+=b[i][2] #total burst time
+
+	
+
+x=0
+
+while total>0:
+
+	flag=0	
+
+	y=0
+		
+while y<n and flag==0: #if another process entered with smaller burst time
+
+	
+if current==b[y][1] and b[y][3]<b[x][3] and b[y][3]!=0:
+
+		flag=1	
+			
+		x=y
+
+		y=y+1
+
+if b[x][3]>0:	#process is running
+
+		total=total-1
+
+		b[x][3]=b[x][3]-1
+
+		current=current+1
+if b[x][3]==0:
+
+		b[x][4]=current
+
+elif (x+1)<n:
+	
+		x=x+1
+
+else:
+
+		b.sort(key=lambda b:b[3]) # order by remaining bt
+
+		q=0
+
+		flag2=0
+
+while q<n and flag2==0:
+
+			
+if b[q][3]>0 and b[q][1]<=current:
+
+		flag2=1
+		
+		x=q
+
+		q=q+1
+
+
+		b.sort(key=lambda b:b[1])
+
+print 'Process \t Arrival time \t Burst time \t waiting time'
+
+
+for i in xrange(n):
+
+	print b[i][0],' \t\t',b[i][1],' \t\t',b[i][2],' \t\t',b[i][4]-b[i][1]-b[i][2] #finish time-Arrival time-brust time
