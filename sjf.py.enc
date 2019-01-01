@@ -1,55 +1,36 @@
-def returnFirstbursttime():
-    for i in range(0,len(burstTime)):
-        if processComplete[i] != 1:
-            return i
+def waiting_time(P1, id):
+	if id!=0:
+		P1[id][1] = P1[id-1][1] + P1[id][1]
+		WT = P1[id-1][1] - P1[id][0]
+		print ("Waiting Time: " +str(WT))
+	else:
+		print("Waiting Time: " +str(P1[id][0]))
 
-def returnIndexOfLowesetBurst():
-    min = returnFirstbursttime()
-    for i in range(returnFirstbursttime() + 1,len(burstTime)):
-        if burstTime[i] < burstTime[min] and processComplete[i] != 1:
-            min = i
-    processComplete[min] = 1
-    return min
+def turnaround_time(P1, id):
+	TAT = P1[id][1] - P1[id][0]
+	print ("Turnaround time: " +str(TAT))
 
+P = [[0, 6], [0, 8], [0, 7], [0, 3]]
+P1 = [[100, 100], [100, 100], [100, 100], [100, 100]]
 
-print("Enter the number of process:")
-n = int(input())
-processes = []
-processComplete = []
-burstTime = []
-arrivalTime = []
-for i in range(0,n):
-    processes.insert(i,i+1)
-    processComplete.insert(i,0)
-    burstTime.insert(i,int(raw_input("Enter the burst time of the processes:")))
-    arrivalTime.insert(i,int(raw_input("Enter the Arrival Time of the processes:")))
-
-
-sum = 0
-waiting = []
-runningProcess = []
-turnAround = []
-waiting.insert(0,0)
-for i in range(0,n):
-    proces = returnIndexOfLowesetBurst()
-    runningProcess.insert(i,proces+1)
-    sum += burstTime[proces]
-    waiting.insert(i+1,sum)
-    turnAround.insert(i,sum-arrivalTime[i])
-
-
-print(waiting)
-print(turnAround)
-sum1 = 0.0
-sum2 = 0.0
-for i in range(0,len(waiting) - 1):
-    sum1 += waiting[i] - arrivalTime[i]
-    sum2 += turnAround[i]
-    print("Waiting time of Process" + str(runningProcess[i]) + " is  "+ str(waiting[i] - arrivalTime[i]))
-    print("Arrival time of Process" + str(runningProcess[i]) + " is  "+ str(turnAround[i]))
-
-print("Average Waiting Time is " + str(float(float(sum1) / n)))
-print("Average TurnAround Time is " + str(float(float(sum2) / n)))
-
-
-
+for index0 in range(4):
+    max = 100
+    for index in range(4):
+        if P[index][p1] < max:
+            max = P[index][1]
+            P1[index0][1] = P[index][1]
+            P1[index0][0] = P[index][0]
+            min = index
+            index = index + 1
+         else:
+            index = index + 1
+     P[min][0] = 110
+     P[min][1] = 110
+     index0 = index0 + 1
+     
+for id in range(len(P1)):
+	print ("PROCESS " +str(id))
+	waiting_time(P1, id)
+	turnaround_time(P1, id)
+	id = id + 1
+	print (" ")
